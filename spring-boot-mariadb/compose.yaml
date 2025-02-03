@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  api_service:
+    image: "spring-boot-dc3:v1"
+    build: .
+    restart: always
+    ports:
+      - 8080:8020
+    networks:
+      - zerocode_lk_network
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: 'mariadb:latest'
+    restart: always
+    networks:
+      - zerocode_lk_network
+    environment:
+#      - 'MARIADB_DATABASE=mydatabase'
+#      - 'MARIADB_PASSWORD=secret'
+      - 'MARIADB_ROOT_PASSWORD=12345'
+#      - 'MARIADB_USER=myuser'
+    ports:
+      - 3306:3308
+networks:
+      zerocode_lk_network:
